@@ -2,10 +2,6 @@
 
 ## AUTHOR => wathika-eng
 
-if [[ $- != *i* ]]; then
-    exec /bin/bash -i "$0" "$@"
-fi
-
 command_exists() {
     command -v "$1" &> /dev/null
 }
@@ -24,7 +20,13 @@ fi
 
 echo "Folders will be downloaded in the current directory: $(pwd)"
 
-read -p "Enter the MediaFire URL: " mediafire_url
+# Force script to run interactively when piped via curl
+if [[ -t 1 ]]; then
+    read -p "Enter the MediaFire URL: " mediafire_url
+else
+    echo "Enter the MediaFire URL: "
+    read mediafire_url
+fi
 
 install_rust() {
     if ! command_exists cargo; then
