@@ -2,6 +2,10 @@
 
 ## AUTHOR => wathika-eng
 
+if [[ $- != *i* ]]; then
+    exec /bin/bash -i "$0" "$@"
+fi
+
 command_exists() {
     command -v "$1" &> /dev/null
 }
